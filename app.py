@@ -3,14 +3,14 @@ import pymysql
 
 app = Flask(__name__)
 
-# Configuración de la conexión a la base de datos
+## Configuración de la conexión a la base de datos
 db = pymysql.connect(host='127.0.0.1',
                      user='root',
                      password='',
                      database='crud de py',
                      cursorclass=pymysql.cursors.DictCursor)
 
-# Ruta para crear un nuevo usuario
+##Ruta para crear un nuevo usuario
 @app.route('/usuarios', methods=['POST'])
 def crear_usuario():
     data = request.json
@@ -24,7 +24,7 @@ def crear_usuario():
 
     return jsonify({'mensaje': 'Usuario creado correctamente'}), 201
 
-# Ruta para obtener todos los usuarios
+## Ruta para obtener todos los usuarios
 @app.route('/usuarios', methods=['GET'])
 def obtener_usuarios():
     cursor = db.cursor()
@@ -32,7 +32,7 @@ def obtener_usuarios():
     usuarios = cursor.fetchall()
     return jsonify(usuarios)
 
-# Ruta para obtener un usuario por su ID
+## Ruta para obtener un usuario por su ID
 @app.route('/usuarios/<int:id>', methods=['GET'])
 def obtener_usuario(id):
     cursor = db.cursor()
@@ -43,7 +43,7 @@ def obtener_usuario(id):
     else:
         return jsonify({'mensaje': 'Usuario no encontrado'}), 404
 
-# Ruta para actualizar un usuario
+## Ruta para actualizar un usuario
 @app.route('/usuarios/<int:id>', methods=['PUT'])
 def actualizar_usuario(id):
     data = request.json
@@ -57,7 +57,7 @@ def actualizar_usuario(id):
 
     return jsonify({'mensaje': 'Usuario actualizado correctamente'})
 
-# Ruta para eliminar un usuario
+## Ruta para eliminar un usuario
 @app.route('/usuarios/<int:id>', methods=['DELETE'])
 def eliminar_usuario(id):
     cursor = db.cursor()
